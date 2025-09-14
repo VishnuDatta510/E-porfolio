@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vishnu - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Custom Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes gradientMove {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+
+      0%,
+      50% {
+        border-color: transparent;
+      }
+
+      51%,
+      100% {
+        border-color: #3b82f6;
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    .scale-in {
+      animation: scaleIn 0.8s ease-out forwards;
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Scroll Behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+      border-radius: 4px;
+    }
+
+    /* Navigation */
+    nav {
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(31, 41, 55, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.8s ease;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    /* Hero Section */
+    .hero-bg {
+      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: 3px solid #3b82f6;
+      white-space: nowrap;
+      animation: typewriter 3s steps(30) 1s forwards, blink 1s step-end infinite;
+    }
+
+    /* Skills Progress */
+    .skill-bar {
+      background: rgba(59, 130, 246, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      height: 8px;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+      border-radius: 10px;
+      transition: width 2s ease-in-out;
+      width: 0;
+    }
+
+    /* Project Cards */
+    .project-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.1));
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Social Links */
+    .social-link {
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      background: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: -2rem;
+      width: 2px;
+      background: linear-gradient(to bottom, #3b82f6, transparent);
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 0.75rem;
+      top: 0.5rem;
+      width: 0.5rem;
+      height: 0.5rem;
+      background: #3b82f6;
+      border-radius: 50%;
+      border: 2px solid #0f172a;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .timeline-item {
+        padding-left: 2rem;
+      }
+
+      .timeline-item::before {
+        left: 0.5rem;
+      }
+
+      .timeline-item::after {
+        left: 0.25rem;
+      }
+    }
+
+    /* Section Animations */
+    .section {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Achievement Cards */
+    .achievement-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .achievement-card:hover {
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+      transform: translateY(-5px);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    /* Particles */
+    .particle {
+      position: absolute;
+      background: rgba(59, 130, 246, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    resume-preview {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.1));
+}
+
+.resume-download-btn {
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+.resume-download-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.resume-download-btn:hover::before {
+  left: 100%;
+}
+
+.resume-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+/* Resume highlight cards hover effects */
+.card h4 {
+  transition: color 0.3s ease;
+}
+
+.card:hover h4 {
+  color: #60a5fa;
+}
+  </style>
+</head>
+
+<body class="bg-slate-900 text-white overflow-x-hidden">
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 bg-slate-900/80 border-b border-blue-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="text-2xl font-bold text-blue-400">Vishnu - Portfolio</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#hero" class="nav-link text-gray-300 hover:text-blue-400">Home</a>
+          <a href="#about" class="nav-link text-gray-300 hover:text-blue-400">About</a>
+          <a href="#education" class="nav-link text-gray-300 hover:text-blue-400">Education</a>
+          <a href="#skills" class="nav-link text-gray-300 hover:text-blue-400">Skills</a>
+          <a href="#projects" class="nav-link text-gray-300 hover:text-blue-400">Projects</a>
+          <a href="#achievements" class="nav-link text-gray-300 hover:text-blue-400">Achievements</a>
+          <a href="#contact" class="nav-link text-gray-300 hover:text-blue-400">Contact</a>
+        </div>
+        <button class="md:hidden mobile-menu-button text-gray-300" onclick="toggleMobileMenu()">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed top-0 left-0 w-full h-full bg-slate-900/95 backdrop-blur-lg z-40 md:hidden">
+      <div class="flex flex-col items-center justify-center h-full space-y-8">
+        <a href="#hero" class="text-2xl text-gray-300 hover:text-blue-400" onclick="toggleMobileMenu()">Home</a>
+        <a href="#about" class="text-2xl text-gray-300 hover:text-blue-400" onclick="toggleMobileMenu()">About</a>
+        <a href="#education" class="text-2xl text-gray-300 hover:text-blue-400"
+          onclick="toggleMobileMenu()">Education</a>
+        <a href="#skills" class="text-2xl text-gray-300 hover:text-blue-400" onclick="toggleMobileMenu()">Skills</a>
+        <a href="#projects" class="text-2xl text-gray-300 hover:text-blue-400" onclick="toggleMobileMenu()">Projects</a>
+        <a href="#achievements" class="text-2xl text-gray-300 hover:text-blue-400"
+          onclick="toggleMobileMenu()">Achievements</a>
+        <a href="#contact" class="text-2xl text-gray-300 hover:text-blue-400" onclick="toggleMobileMenu()">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="min-h-screen flex items-center justify-center hero-bg relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 text-center px-4">
+      <div class="mb-8 fade-in-up">
+        <div
+          class="w-64 h-64 rounded-full mx-auto mb-6 border-4 border-blue-400 float bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+          <img src="pfp.jpg" alt="Profile Picture" class="w-60 h-60 rounded-full object-cover border-2 border-white shadow-lg">
+        </div>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-bold mb-4 slide-in-left">
+        Hi, I'm <span class="text-blue-400">Vishnu Datta</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-8 slide-in-right max-w-2xl mx-auto">
+        B.Tech Student | Design Lead @ IOTA | Full Stack Developer
+      </p>
+      <div class="space-x-4 scale-in">
+        <a href="#projects"
+          class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full transition-all duration-300 inline-block">
+          View My Work
+        </a>
+        <a href="#contact"
+          class="border border-blue-400 hover:bg-blue-400 hover:text-slate-900 px-8 py-3 rounded-full transition-all duration-300 inline-block">
+          Get In Touch
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particle w-2 h-2 top-20 left-20" style="animation-delay: 0s;"></div>
+    <div class="particle w-3 h-3 top-40 right-32" style="animation-delay: 2s;"></div>
+    <div class="particle w-1 h-1 top-60 left-1/4" style="animation-delay: 4s;"></div>
+    <div class="particle w-2 h-2 bottom-40 right-20" style="animation-delay: 1s;"></div>
+    <div class="particle w-1 h-1 bottom-20 left-1/3" style="animation-delay: 3s;"></div>
+  </section>
+
+  <!-- Personal Information -->
+  <section id="about" class="section py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">About Me</h2>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="card p-8 rounded-xl">
+          <h3 class="text-2xl font-semibold mb-6 text-blue-400 flex items-center">
+            <i class="fas fa-user-circle mr-3"></i>
+            Personal Information
+          </h3>
+          <div class="space-y-4 text-gray-300">
+            <div class="flex items-center">
+              <i class="fas fa-user w-6 text-blue-400"></i>
+              <span class="ml-3"><strong>Name:</strong> Vishnu Datta</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-map-marker-alt w-6 text-blue-400"></i>
+              <span class="ml-3"><strong>Location:</strong> IIIT Sricity, Sricity, AP, India</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-graduation-cap w-6 text-blue-400"></i>
+              <span class="ml-3"><strong>Education:</strong> 3rd Year B.Tech in Computer Science</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-briefcase w-6 text-blue-400"></i>
+              <span class="ml-3"><strong>Role:</strong> Student and Design Lead at IOTA Club</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-heart w-6 text-blue-400"></i>
+              <span class="ml-3"><strong>Interests:</strong> Programming, Data Structures, Web Development</span>
+            </div>
+          </div>
+        </div>
+        <div class="card p-8 rounded-xl">
+          <h3 class="text-2xl font-semibold mb-6 text-blue-400 flex items-center">
+            <i class="fas fa-lightbulb mr-3"></i>
+            Personal Statement
+          </h3>
+          <p class="text-gray-300 leading-relaxed mb-4">
+            I'm genuinely interested in technology and development, always curious about how things work and eager to
+            dive into new areas. Whether it's exploring different programming languages, understanding algorithms, or
+            working with new frameworks, I enjoy the process of learning and figuring things out.
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            What drives me is that excitement of discovering something new in tech and applying it to solve real
+            problems. I'm always open to exploring unfamiliar concepts and pushing myself to grow as a developer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="section py-20 px-4 bg-slate-800/50">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Education</h2>
+      <div class="max-w-4xl mx-auto">
+        <div class="timeline-item mb-12">
+          <div class="card p-8 rounded-xl">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+              <div>
+                <h3 class="text-2xl font-semibold text-blue-400">Bachelor of Technology</h3>
+                <p class="text-lg text-gray-300">IIIT Sri City</p>
+              </div>
+              <div class="text-gray-400 mt-2 md:mt-0">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                2023 - 2027
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">
+              Currently pursuing Bachelor of Technology with a focus on computer science and engineering.
+              Learning New Technologies and exploring various domains in computer science.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Computer Science</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Software Engineering</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Data Structures</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Algorithms</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Web Development</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">UI / UX</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="card p-8 rounded-xl">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+              <div>
+                <h3 class="text-2xl font-semibold text-blue-400">Design Lead</h3>
+                <p class="text-lg text-gray-300">IOTA Club</p>
+              </div>
+              <div class="text-gray-400 mt-2 md:mt-0">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                2025 - Present
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">
+              Leading design initiatives and managing creative projects within the technical club.
+              Responsible for visual branding, UI/UX design, Creative direction and Video Editing.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Leadership</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">UI/UX</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Project Management</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Team Coordination</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Video Editing</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Social Media Management</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Skills & Expertise</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Programming Languages -->
+        <div class="card p-8 rounded-xl">
+          <h3 class="text-xl font-semibold mb-6 text-blue-400 flex items-center">
+            <i class="fas fa-code mr-3"></i>
+            Programming Languages
+          </h3>
+          <div class="space-y-5">
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Java</span>
+                <span class="text-blue-400 font-semibold">Expert</span>
+              </div>
+              <div class="text-sm text-gray-400">2+ years experience | DSA & CP</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">HTML | CSS | JS</span>
+                <span class="text-blue-400 font-semibold">Expert</span>
+              </div>
+              <div class="text-sm text-gray-400">Web Development</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Javascript</span>
+                <span class="text-yellow-400 font-semibold">Intermediate</span>
+              </div>
+              <div class="text-sm text-gray-400">Node JS Backend and React Frontend</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">TypeScript</span>
+                <span class="text-yellow-400 font-semibold">Beginner</span>
+              </div>
+              <div class="text-sm text-gray-400">Web Development</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web Technologies -->
+        <div class="card p-8 rounded-xl">
+          <h3 class="text-xl font-semibold mb-6 text-blue-400 flex items-center">
+            <i class="fas fa-laptop-code mr-3"></i>
+            Web Technologies
+          </h3>
+          <div class="space-y-5">
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">React JS</span>
+                <span class="text-blue-400 font-semibold">Expert</span>
+              </div>
+              <div class="text-sm text-gray-400">Hooks, Redux, Next.js</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Node JS</span>
+                <span class="text-green-400 font-semibold">Advanced</span>
+              </div>
+              <div class="text-sm text-gray-400">Express, REST APIs</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">HTML/CSS</span>
+                <span class="text-blue-400 font-semibold">Expert</span>
+              </div>
+              <div class="text-sm text-gray-400">Responsive Design, Animations</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">MongoDB</span>
+                <span class="text-green-400 font-semibold">Advanced</span>
+              </div>
+              <div class="text-sm text-gray-400">Aggregation, Indexing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Design & Tools -->
+        <div class="card p-8 rounded-xl">
+          <h3 class="text-xl font-semibold mb-6 text-blue-400 flex items-center">
+            <i class="fas fa-palette mr-3"></i>
+            Design & Tools
+          </h3>
+          <div class="space-y-5">
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Canva</span>
+                <span class="text-blue-400 font-semibold">Expert</span>
+              </div>
+              <div class="text-sm text-gray-400">Designing</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Adobe Premiere Pro</span>
+                <span class="text-green-400 font-semibold">Advanced</span>
+              </div>
+              <div class="text-sm text-gray-400">Video Editing </div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Figma</span>
+                <span class="text-blue-400 font-semibold">Expert</span>
+              </div>
+              <div class="text-sm text-gray-400">Prototyping, Designing FrontEnd</div>
+            </div>
+            <div class="skill-item">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-300 font-medium">Git/GitHub</span>
+                <span class="text-green-400 font-semibold">Advanced</span>
+              </div>
+              <div class="text-sm text-gray-400">Branching, Collaboration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section py-20 px-4 bg-slate-800/50">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project 1 -->
+        <div class="project-card card p-6 rounded-xl">
+          <div class="mb-4">
+            <div
+              class="w-full h-48 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-laptop-code text-4xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-blue-400 mb-2">Pizza Ordering Website</h3>
+            <p class="text-gray-300 mb-4">
+              A React pizza app built with useState hooks for managing order state and interactive pizza customization.
+              Features dynamic components for selecting toppings and calculating prices with real-time updates.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-blue-600/20 text-blue-300 px-2 py-1 rounded text-sm">React</span>
+              <span class="bg-blue-600/20 text-blue-300 px-2 py-1 rounded text-sm">MongoDB</span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="https://vishnudatta510.github.io/practice-pizzas/"
+                class="text-blue-400 hover:text-blue-300 transition-colors">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Live Demo
+              </a>
+              <a href="https://github.com/VishnuDatta510/practice-pizzas"
+                class="text-gray-400 hover:text-gray-300 transition-colors">
+                <i class="fab fa-github mr-1"></i>
+                Code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card card p-6 rounded-xl">
+          <div class="mb-4">
+            <div
+              class="w-full h-48 bg-gradient-to-br from-green-600 to-teal-600 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-laptop-code text-4xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-blue-400 mb-2">Flashcards WebApp</h3>
+            <p class="text-gray-300 mb-4">
+              A React flashcard application utilizing useState hooks for managing card flip states and learning progress
+              tracking. Features interactive question-answer cards with click-to-flip functionality and dynamic
+              component state management.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-green-600/20 text-green-300 px-2 py-1 rounded text-sm">React</span>
+              <span class="bg-green-600/20 text-green-300 px-2 py-1 rounded text-sm">MongoDB</span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="https://vishnudatta510.github.io/practice-flashcards/"
+                class="text-blue-400 hover:text-blue-300 transition-colors">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Live Demo
+              </a>
+              <a href="https://github.com/VishnuDatta510/practice-flashcards"
+                class="text-gray-400 hover:text-gray-300 transition-colors">
+                <i class="fab fa-github mr-1"></i>
+                Code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card card p-6 rounded-xl">
+          <div class="mb-4">
+            <div
+              class="w-full h-48 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-laptop-code text-4xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-blue-400 mb-2">Travel Todo - FarAway</h3>
+            <p class="text-gray-300 mb-4">
+              A React travel todo application built with useState hooks for managing trip planning tasks and travel
+              checklist items. Features dynamic task addition, completion tracking, and travel-specific todo management
+              with interactive state updates.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-purple-600/20 text-purple-300 px-2 py-1 rounded text-sm">React</span>
+              <span class="bg-purple-600/20 text-purple-300 px-2 py-1 rounded text-sm">Figma</span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="https://vishnudatta510.github.io/practice-Travel-todo/"
+                class="text-blue-400 hover:text-blue-300 transition-colors">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Live Demo
+              </a>
+              <a href="https://github.com/VishnuDatta510/practice-Travel-todo"
+                class="text-gray-400 hover:text-gray-300 transition-colors">
+                <i class="fab fa-github mr-1"></i>
+                Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- Achievements -->
+  <section id="achievements" class="section py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Achievements & Recognition</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="achievement-card card p-6 rounded-xl text-center">
+          <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-code text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Udemy Full-Stack Development Certification</h3>
+          <p class="text-gray-300 mb-4">
+            Completed comprehensive course covering Node.js, Express, HTML, CSS, JavaScript with production-ready applications built.
+          </p>
+          <div class="text-sm text-gray-400">
+            <i class="fas fa-calendar-alt mr-1"></i>
+            2024
+          </div>
+        </div>
+
+        <div class="achievement-card card p-6 rounded-xl text-center">
+          <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-users text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Leadership Excellence</h3>
+          <p class="text-gray-300 mb-4">
+            Recognized for outstanding leadership as Design Lead, successfully managing
+            multiple design projects and mentoring junior members.
+          </p>
+          <div class="text-sm text-gray-400">
+            <i class="fas fa-calendar-alt mr-1"></i>
+            2024
+          </div>
+        </div>
+
+        <div class="achievement-card card p-6 rounded-xl text-center">
+          <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-trophy text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Best Design Appreciation</h3>
+          <p class="text-gray-300 mb-4">
+            Appreciated for exceptional design work and creative leadership within IOTA Club's
+            various technical projects and initiatives. 
+            Designed posters, logos, PPT's.
+          </p>
+          <div class="text-sm text-gray-400">
+            <i class="fas fa-calendar-alt mr-1"></i>
+            2024
+
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+  <!-- Extracurricular Activities -->
+<section id="extracurricular" class="section py-20 px-4 bg-slate-800/50">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Extracurricular Activities</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      
+      <!-- Activity 1: IOTA Club Leadership -->
+      <div class="extracurricular-card card p-8 rounded-xl">
+        <div class="flex items-start space-x-4">
+          <div class="w-16 h-16 bg-purple-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-users text-2xl text-purple-400"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-purple-400 mb-2">Design Team Lead - IOTA Club</h3>
+            <p class="text-gray-300 mb-4 leading-relaxed">
+              Leading design initiatives and managing creative projects within the technical club. 
+              Responsible for conducting team interviews, visual branding, UI/UX design, and creative direction.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">Leadership</span>
+              <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">Team Management</span>
+              <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">Creative Direction</span>
+              <span class="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">Project Coordination</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 2: Competitive Programming -->
+      <div class="extracurricular-card card p-8 rounded-xl">
+        <div class="flex items-start space-x-4">
+          <div class="w-16 h-16 bg-green-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-code text-2xl text-green-400"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-green-400 mb-2">LeetCode Problem Solving</h3>
+            <p class="text-gray-300 mb-4 leading-relaxed">
+              Daily practice of Data Structures and Algorithms problems with focus on Java implementations. 
+              Continuously improving problem-solving skills and algorithmic thinking.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Problem Solving</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Algorithm Design</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Java Programming</span>
+              <span class="bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-sm">Critical Thinking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 3: Technology Research -->
+      <div class="extracurricular-card card p-8 rounded-xl">
+        <div class="flex items-start space-x-4">
+          <div class="w-16 h-16 bg-blue-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-gamepad text-2xl text-blue-400"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-blue-400 mb-2">Gaming & Technology Enthusiast</h3>
+            <p class="text-gray-300 mb-4 leading-relaxed">
+              Active in gaming communities, researching hardware specifications, and optimizing system performance. 
+              Passionate about latest gaming technology trends and hardware analysis.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Hardware Analysis</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Performance Optimization</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Gaming</span>
+              <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-sm">Research</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 4: Open Source -->
+      <div class="extracurricular-card card p-8 rounded-xl">
+        <div class="flex items-start space-x-4">
+          <div class="w-16 h-16 bg-orange-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fab fa-github text-2xl text-orange-400"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-orange-400 mb-2">Dance</h3>
+            <p class="text-gray-300 mb-4 leading-relaxed">
+              Passionate performer trained in Hip Hop, Locking, Breakdancing participating in local competitions and community showcases. Developing discipline, creativity, and teamwork through regular practice and collaborative performances.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-orange-600/20 text-orange-300 px-3 py-1 rounded-full text-sm">Hip-Hop</span>
+              <span class="bg-orange-600/20 text-orange-300 px-3 py-1 rounded-full text-sm">Locking</span>
+              <span class="bg-orange-600/20 text-orange-300 px-3 py-1 rounded-full text-sm">BreakDance</span>
+              <span class="bg-orange-600/20 text-orange-300 px-3 py-1 rounded-full text-sm">FreeStyle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- View Resume Buttons -->
+<div class="flex flex-col items-center space-y-4 px-4 py-6">
+  <a href="/path-to-your-resume.pdf" target="_blank" rel="noopener noreferrer"
+     class="resume-view-btn bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg 
+            transition-all duration-300 inline-flex items-center justify-center text-sm font-medium
+            shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+    <i class="fas fa-eye mr-2"></i>
+    View PDF Resume
+  </a>
+</div>
+
+      
+  <!-- Contact -->
+  <section id="contact" class="section py-20 px-4 bg-slate-800/50">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Get In Touch</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Contact Info -->
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-2xl font-semibold mb-6 text-blue-400">Let's Connect</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+              I'm always open to discussing new opportunities, interesting projects,
+              or just having a chat about technology and design. Feel free to reach out!
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mr-4">
+                <i class="fas fa-envelope text-blue-400"></i>
+              </div>
+              <div>
+                <p class="text-gray-300">Email</p>
+                <a href="mailto:vishnudatta.g23@iiits.in" class="text-blue-400 hover:text-blue-300 transition-colors">
+                  vishnudatta.g23@iiits.in
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mr-4">
+                <i class="fas fa-phone text-blue-400"></i>
+              </div>
+              <div>
+                <p class="text-gray-300">Phone</p>
+                <a href="tel:+91-9876543210" class="text-blue-400 hover:text-blue-300 transition-colors">
+                  +91-9876543210
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mr-4">
+                <i class="fas fa-map-marker-alt text-blue-400"></i>
+              </div>
+              <div>
+                <p class="text-gray-300">Location</p>
+                <p class="text-blue-400">IIIT Sri City, India</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4 text-gray-300">Follow Me</h4>
+            <div class="flex space-x-4">
+              <a href="https://github.com/VishnuDatta510" class="social-link hover:text-blue-400">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/vishnudattagb/" class="social-link hover:text-blue-400">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="card p-8 rounded-xl">
+          <form class="space-y-6">
+            <div>
+              <h4 class="text-lg font-semibold mb-4 text-gray-300">Contact Me</h4>
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+              <input type="text" id="name" name="name"
+                class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-gray-400"
+                placeholder="Your Name">
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input type="email" id="email" name="email"
+                class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-gray-400"
+                placeholder="your.email@example.com">
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+              <input type="text" id="subject" name="subject"
+                class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-gray-400"
+                placeholder="What's this about?">
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+              <textarea id="message" name="message" rows="5"
+                class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-gray-400 resize-none"
+                placeholder="Tell me about your project or just say hi!"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-all duration-300 font-medium">
+              <i class="fas fa-paper-plane mr-2"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-4 bg-slate-900 border-t border-slate-700">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-gray-400 mb-4">
+        &copy; Footer !!
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      mobileMenu.classList.toggle('active');
+    }
+
+    // Scroll animations
+    function animateOnScroll() {
+      const sections = document.querySelectorAll('.section');
+      const windowHeight = window.innerHeight;
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const scrollTop = window.pageYOffset;
+
+        if (scrollTop > sectionTop - windowHeight + 100) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    // Skill bar animations
+    function animateSkillBars() {
+      const skillBars = document.querySelectorAll('.skill-progress');
+      const windowHeight = window.innerHeight;
+
+      skillBars.forEach(bar => {
+        const barTop = bar.offsetTop;
+        const scrollTop = window.pageYOffset;
+
+        if (scrollTop > barTop - windowHeight + 100) {
+          const width = bar.getAttribute('data-width');
+          bar.style.width = width + '%';
+        }
+      });
+    }
+
+    // Navigation active state
+    function updateActiveNavLink() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+
+        if (window.pageYOffset >= sectionTop - 200) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Form submission
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Get form data
+      const formData = new FormData(this);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
+
+      // Simple validation
+      if (!name || !email || !message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      // Simulate form submission
+      alert('Thank you for your message! I\'ll get back to you soon.');
+      this.reset();
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Event listeners
+    window.addEventListener('scroll', () => {
+      animateOnScroll();
+      animateSkillBars();
+      updateActiveNavLink();
+    });
+
+    window.addEventListener('load', () => {
+      animateOnScroll();
+      animateSkillBars();
+      updateActiveNavLink();
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function (e) {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const menuButton = document.querySelector('.mobile-menu-button');
+
+      if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+        mobileMenu.classList.remove('active');
+      }
+    });
+
+    // Keyboard navigation for accessibility
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        const mobileMenu = document.querySelector('.mobile-menu');
+        mobileMenu.classList.remove('active');
+      }
+    });
+
+    // Add loading animation
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+  </script>
+</body>
+
+</html>
